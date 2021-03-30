@@ -484,7 +484,7 @@ $color_4 = "#FFFFFF";
                 </div>
             </div>
             <iframe allowfullscreen="true" allow="fullscreen" style="border:none;width:100%;height:600px;" 
-                src="issuu_embed" scrolling="no"></iframe>
+                scrolling="no" src="{{ $rs->issuu_embed }}" ></iframe>
         </div>
         <footer>
             <div class="container">
