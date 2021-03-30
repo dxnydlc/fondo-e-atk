@@ -1,0 +1,44 @@
+.min-h-screen.flex.flex-col > .w-full > form .flex.items-center.justify-end.mt-4 button {
+    background-color: #092d74;
+    border-color: #092d74;
+    transition: all .3s ease;
+}
+.min-h-screen.flex.flex-col > .w-full > form .flex.items-center.justify-end.mt-4 button:hover {
+    background-color: #fa4e0a;
+    border-color: #fa4e0a;
+}
+.min-h-screen.flex.flex-col > div > img {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.min-h-screen.flex.flex-col {
+    max-width: 400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    height: 100%;
+    background-color: #FFF;
+}
+
+.min-h-screen.flex.flex-col > div {
+    background: #092d74;
+    padding: 25px 25px 0 25px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.min-h-screen.flex.flex-col > .w-full {
+    margin-top: 0;
+    max-width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-bottom: 25px;
+}
+.min-h-screen.flex.flex-col > .w-full > form {
+    background: #FFF;
+    padding: 15px;
+}
+.min-h-screen.flex.flex-col > .w-full > form input.border-gray-300 {
+    height: 36px;
+    padding: 5px 10px;
+}

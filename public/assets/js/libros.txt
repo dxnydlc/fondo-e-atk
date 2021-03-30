@@ -1,0 +1,51 @@
+var libros = [
+  {
+    titulo: 'La Magia del Agua en el Lago Titicaca',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/la-magia-del-agua-en-el-lago-titicaca',
+    autor: 'Pedro Pérez',
+    id: 1,
+  },
+  {
+    titulo: 'La Amazonía',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/la-amazonia',
+    autor: 'Pedro Pérez',
+    id: 2,
+  },
+  {
+    titulo: 'El señor de los Milagros',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/el-senor-de-los-milagros',
+    autor: 'Pedro Pérez',
+    id: 3,
+  },
+  {
+    titulo: 'Fiestas y Danzas del Perú',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/fiestas-y-danzas-del-peru',
+    autor: 'Pedro Pérez',
+    id: 4,
+  },
+  {
+    titulo: 'Pachacamac, el oráculo en el horizonte marino del sol poniente',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/pachacamac-el-oraculo-en-el-horizonte-marino-del-sol-poniente',
+    autor: 'Pedro Pérez',
+    id: 4,
+  },
+  {
+    titulo: 'Los Chachapoyas',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/los-chachapoyas',
+    autor: 'Pedro Pérez',
+    id: 5,
+  },
+  {
+    titulo: 'San Pedro de Lima',
+    imagen: '../images/portada-libro.png',
+    url: 'http://atkdigital.com/fondo-editorial/publicaciones/san-pedro-de-lima',
+    autor: 'Pedro Pérez',
+    id: 6,
+  }
+];
