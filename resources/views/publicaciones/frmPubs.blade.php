@@ -8,6 +8,8 @@
     <input type="hidden" id="presentacion_imagen" name="presentacion_imagen" />
     <input type="hidden" id="coleccion_id" name="coleccion_id" value="0" />
 
+    <input type="hidden" id="preambulo_imagen_fondo" name="preambulo_imagen_fondo" />
+
 
 
     <div class=" card " >
@@ -39,9 +41,17 @@
                     <!-- ./form-group -->
                 </div>
                 <!-- ./col -->
-                <div class=" col-lg-2 col-md-2 " >
+                <div class=" col-lg-4 col-md-4 " >
+                    <div class="form-group">
+                        <label for="sub_titulo" >Sub Título</label>
+                        <input type="text" name="sub_titulo" id="sub_titulo" class="form-control" value="" maxlength="150" />
+                    </div>
+                    <!-- ./form-group -->
+                </div>
+                <!-- ./col -->
+                <div class=" col-lg-4 col-md-4 " >
                   <div class="row row-estados">
-                    <label for="titulo" >Estados</label>
+                    <label for="activo" >Estados</label>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="activo" name="activo" value="1" >
                         <label class="form-check-label" for="activo">Activo</label>
@@ -62,7 +72,7 @@
                 <div class=" col-lg-8 col-md-8 " >
                     <div class=" form-group ">
                         <label for="resumen">Resumen</label>
-                        <textarea name="resumen" id="resumen" class=" form-control " ></textarea>
+                        <textarea rows="6" name="resumen" id="resumen" class=" form-control " ></textarea>
                     </div>
                     <!-- ./form-group -->
                     <div class=" row " >
@@ -131,7 +141,8 @@
                     <h4>Paleta de Colores</h4>
                     <div class=" row " >
                         <div class="form-group col-lg-2 col-md-2">
-                            <label>Base</label>
+                            <label>Color 1</label>
+                            <!-- <label>Base</label> -->
                             <div class="input-group my-colorpicker1" >
                                 <input type="text" class="form-control" id="color_base" name="color_base" >
                                 <div class="input-group-append">
@@ -142,7 +153,8 @@
                         </div>
                         <!-- /.form group -->
                         <div class="form-group col-lg-2 col-md-2">
-                            <label>Título base</label>
+                            <label>Color 2</label>
+                            <!--<label>Título base</label>-->
                             <div class="input-group my-colorpicker3" >
                                 <input type="text" class="form-control" id="color_titulo_base" name="color_titulo_base" >
                                 <div class="input-group-append">
@@ -153,7 +165,8 @@
                         </div>
                         <!-- /.form group -->
                         <div class="form-group col-lg-2 col-md-2">
-                            <label>Img. título base</label>
+                            <label>Color 3</label>
+                            <!--<label>Img. título base</label>-->
                             <div class="input-group my-colorpicker5" >
                                 <input type="text" class="form-control" id="color_imagen_titulo_base" name="color_imagen_titulo_base" >
                                 <div class="input-group-append">
@@ -164,7 +177,8 @@
                         </div>
                         <!-- /.form group -->
                         <div class="form-group col-lg-2 col-md-2">
-                            <label>Sub-título base</label>
+                            <label>Color 4</label>
+                            <!--<label>Sub-título base</label>-->
                             <div class="input-group my-colorpicker7" >
                                 <input type="text" class="form-control" id="color_subtitulo_base" name="color_subtitulo_base" >
                                 <div class="input-group-append">
@@ -174,7 +188,7 @@
                             <!-- /.input group -->
                         </div>
                         <!-- /.form group -->
-                        <div class="form-groupcol-lg-2 col-md-2">
+                        <div class="form-groupcol-lg-2 col-md-2" style="display:none;" >
                             <label>Texto base</label>
                             <div class="input-group my-colorpicker9" >
                                 <input type="text" class="form-control" id="color_texto_base" name="color_texto_base" >
@@ -185,7 +199,7 @@
                             <!-- /.input group -->
                         </div>
                         <!-- /.form group -->
-                        <div class="form-group col-lg-2 col-md-2">
+                        <div class="form-group col-lg-2 col-md-2" style="display:none;" >
                             <label>Icono quote</label>
                             <div class="input-group my-colorpicker11" >
                                 <input type="text" class="form-control" id="color_icono_quote" name="color_icono_quote" >
@@ -198,7 +212,7 @@
                         <!-- /.form group -->
                     <!-- ############################## ./ROW ############################## -->
                     </div>
-                    <div class=" row " >
+                    <div class=" row " style="display:none;" >
                         <div class="form-group col-lg-2 col-md-2">
                             <label>Alterno</label>
                             <div class="input-group my-colorpicker2" >
@@ -280,7 +294,8 @@
                 <div class=" col-lg-8 col-md-8 " >
                     <div class="form-group">
                         <label for="dedicatoria">Dedicatoria</label>
-                        <textarea name="dedicatoria" id="dedicatoria" class=" form-control " ></textarea>
+                        <small class="text-muted" >Un un salto de línea simple por cada párrafo</small>
+                        <textarea rows="6" name="dedicatoria" id="dedicatoria" class=" form-control " ></textarea>
                     </div>
                     <!-- ./form-group -->
                 </div>
@@ -310,14 +325,15 @@
             <h4>Presentación</h4>
             <div class=" row " >
                 <div class=" col-lg-8 col-md-8 " >
+                    
                     <div class="form-group">
-                        <label for="presentacion_detalle" >Detalle</label>
-                        <textarea name="presentacion_detalle" id="presentacion_detalle" class=" form-control " ></textarea>
+                        <label for="presentacion_quote" >Quote</label>
+                        <textarea rows="6" name="presentacion_quote" id="presentacion_quote" class=" form-control " ></textarea>
                     </div>
                     <!-- ./form-group -->
                     <div class="form-group">
-                        <label for="presentacion_quote" >Quote</label>
-                        <textarea name="presentacion_quote" id="presentacion_quote" class=" form-control " ></textarea>
+                        <label for="presentacion_detalle" >Detalle</label>
+                        <textarea rows="6" name="presentacion_detalle" id="presentacion_detalle" class=" form-control " ></textarea>
                     </div>
                     <!-- ./form-group -->
                 </div>
@@ -329,10 +345,58 @@
                         <img src="" alt="" class="img-thumbnail img-fluid " id="img03" />
                     </div>
                     <!-- ./form-group -->
+                    <div class="form-group">
+                        <label for="presentacion_titulo">Título presentación</label> 
+                        <input type="text" name="presentacion_titulo" id="presentacion_titulo" class="form-control" value="" maxlength="150" />
+                    </div>
+                    <!-- ./form-group -->
+                    <div class="form-group">
+                        <label for="presentacion_sub_titulo">Sub título presentación</label> 
+                        <input type="text" name="presentacion_sub_titulo" id="presentacion_sub_titulo" class="form-control" value="" maxlength="150" />
+                    </div>
+                    <!-- ./form-group -->
                 </div>
                 <!-- ./col -->
             </div>
             <!-- ./row -->
+
+
+
+            <hr>
+            <div class=" row " >
+                <div class=" col-lg-3 col-md-3 " >
+                  <h4>Galería general</h4>
+                </div>
+                <div class=" col-lg-6 col-md-6" ></div>
+                <!-- ./col -->
+                <div class=" col-lg-3 col-md-3 align-rigth" >
+                    <a href="#" class=" btn btn-primary pull-right " id="btnAddGaleriaG" >Agregar Imagen</a>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- ./row -->
+            <hr>
+            <div class=" row " >
+                <div class=" col-lg-12 col-md-12 " >
+                    <table class="table table-striped " id="tblGaleriaGeneral" style="width:100%" >
+                        <thead>
+                            <tr>
+                                <th>Orden</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- ./row -->
+
+
+
+
+
             <hr>
             <div class=" row " >
                 <div class=" col-lg-3 col-md-3 " >
@@ -366,6 +430,34 @@
 
 
 
+
+            <hr>
+            <h4>Preambulo</h4>
+            <div class=" row " >
+                <div class=" col-lg-8 col-md-8 " >
+                    <div class="form-group">
+                        <label for="preambulo_detalle" >Texto</label>
+                        <textarea rows="6" name="preambulo_detalle" id="preambulo_detalle" class=" form-control " ></textarea>
+                    </div>
+                    <!-- ./form-group -->
+                </div>
+                <!-- ./col -->
+                <div class=" col-lg-4 col-md-4 " >
+                    <div class=" form-group ">
+                        <label for="#" >Imagen preambulo</label>
+                        <div id="showoldupload8" ></div>
+                        <img src="" alt="" class="img-thumbnail img-fluid " id="img08" />
+                    </div>
+                    <!-- ./form-group -->
+                </div>
+                <!-- ./col -->
+                <!-- preambulo_imagen_fondo -->
+
+
+            </div>
+            <!-- ./row -->
+
+
             <hr>
             <h4>Capítulo</h4>
 
@@ -387,7 +479,7 @@
                 <div class=" col-lg-8 col-md-8 " >
                     <div class=" form-group ">
                         <label for="capitulo_descripcion">Detalle</label>
-                        <textarea name="capitulo_descripcion" id="capitulo_descripcion" class=" form-control " ></textarea>
+                        <textarea rows="6" name="capitulo_descripcion" id="capitulo_descripcion" class=" form-control " ></textarea>
                     </div>
                     <!-- ./form-group -->
                 </div>
@@ -399,7 +491,7 @@
                 <div class=" col-lg-8 col-md-8 " >
                     <div class=" form-group ">
                         <label for="capitulo_cita">Cita</label>
-                        <textarea name="capitulo_cita" id="capitulo_cita" class=" form-control " ></textarea>
+                        <textarea rows="6" name="capitulo_cita" id="capitulo_cita" class=" form-control " ></textarea>
                     </div>
                     <!-- ./form-group -->
                 </div>

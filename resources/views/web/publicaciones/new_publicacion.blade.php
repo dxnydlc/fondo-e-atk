@@ -41,14 +41,19 @@ function hex2rgba($color, $opacity = false) {
 }
 
 /*PALETA DE COLOR #1 */ 
-$color_1 = "#371b3e";
-$color_2 = "#573060";
-$color_3 = "#DCB986";
-$color_4 = "#FFFFFF";
+$color_1 = $rs->color_base;#"#371b3e";
+$color_2 = $rs->color_titulo_base;#"#573060";
+$color_3 = $rs->color_imagen_titulo_base;#"#DCB986";
+$color_4 = $rs->color_subtitulo_base;#"#FFFFFF";
 
 
 ?>
-
+<!--
+$color_1 = "{{ $rs->color_base }}";#"#371b3e";
+$color_2 = "{{ $rs->color_titulo_base }}";#"#573060";
+$color_3 = "{{ $rs->color_imagen_titulo_base }}";#"#DCB986";
+$color_4 = "{{ $rs->color_subtitulo_base }}";#"#FFFFFF";
+-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -217,7 +222,7 @@ $color_4 = "#FFFFFF";
             <div class="container">
                 <div class="barra">
                     <div class="logo">
-                        <img src="{{ asset('img/logo-negativo.png') }}" />
+                        <a href="{{ url('/') }}"><img src="{{ asset('img/logo-negativo.png') }}" /></a>
                     </div>
                     <div class="hamburger hamburger--collapse js-hamburger">
                         <div class="hamburger-box">
@@ -242,9 +247,9 @@ $color_4 = "#FFFFFF";
                             </div>
                             <div class="col-5">
                                 <ul class="extra">
-                                    <li data-id="">Publicaciones</li>
-                                    <li data-id="">Fondo Editorial</li>
-                                    <li data-id="">Noticias</li>
+                                    <li data-id=""><a href="{{ url('/publicaciones') }} " >Publicaciones</a></li>
+                                    <li data-id=""><a href="{{ url('/fondo-editorial') }} " >Fondo Editorial</a></li>
+                                    <li data-id=""><a href="{{ url('/noticias') }} " >Noticias</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -272,7 +277,7 @@ $color_4 = "#FFFFFF";
                                             </ul>
                                         </div>
                                         <h1 class="title serif">{!! $rs->titulo !!}</h1>
-                                        <!--<p class="text">historia, devoci&oacute;n e identidad</p>-->
+                                        <p class="text">{!! $rs->sub_titulo !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -296,8 +301,14 @@ $color_4 = "#FFFFFF";
                                     <h2 class="serif">Dedi<br>cato<br>ria</h2>
                                 </div>
                                 <div class="col-9" id="dedicatoriaText" >
-                                    {!! $rs->dedicatoria !!}
-                                    <p class="gs_reveal"></p>
+                                    <!-- POR CADA <br/> UN PARRAFO TO-DO -->
+                                    @php
+                                        $arTexto = explode( '<br/>' , $rs->dedicatoria );
+                                        for ($i=0; $i < count($arTexto) ; $i++) { 
+                                            echo '<p class="gs_reveal">'.$arTexto[$i].'</p>';
+                                        }
+                                    @endphp
+                                    <!-- <p class="gs_reveal">{!! $rs->dedicatoria !!}</p>-->
                                 </div>
                             </div>
                         </div>
@@ -311,13 +322,15 @@ $color_4 = "#FFFFFF";
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="parafo">
-                                    {!! $rs->presentacion_detalle !!}
+                                    <p>{!! $rs->presentacion_quote !!}</p>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <img src="{{ URL_MEDIA.$rs->presentacion_imagen }}" />
                                 <div class="legend">
-                                    {!! $rs->presentacion_quote !!}
+                                    <!-- TO-DO -->
+                                    <p class="title">{!! $rs->presentacion_titulo !!}</p>
+                                    <p class="subtitle">{!! $rs->presentacion_sub_titulo !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -325,9 +338,8 @@ $color_4 = "#FFFFFF";
                     <div class="container" id="presentacion-2">
                         <div class="row">
                             <div class="col-12">
-                                <p class="gs_reveal">
-                                    [DE DONDE SALE ESTE TEXTO]
-                                </p>
+                                <!-- -->
+                                <p class="gs_reveal">{!! $rs->presentacion_detalle !!}</p>
                             </div>
                         </div>
                     </div>
@@ -358,20 +370,20 @@ $color_4 = "#FFFFFF";
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="parafo">
-                                <p>[DE DONDE SALE ESTE TEXTO] Publicar un libro sobre la devoción al Señor de los Milagros no es fácil. Hay dos perspectivas constituidas por la historia y por la religión, que nos exigen tanto rigor como veneración. Un tema como este requiere ciertamente una investigación minuciosa del pasado y de la evolución del culto hasta nuestra época, con la ayuda de la observación y de la razón; y, por otra parte, se trata de un hecho religioso cuya interpretación y desarrollo exigen un conocimiento hondo de la religión católica.</p>
+                            <div class="parafo" data-preambulo="0" >
+                                <p>{!! $rs->preambulo_detalle !!}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="capitulos" style="background-image: url({{ asset('img/capitulos.png') }});" id="capitulos">
+            <div class="capitulos" style="background-image: url({{ URL_MEDIA.$rs->preambulo_imagen_fondo }});" id="capitulos">
                 <div class="container" id="capitulos-1">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="serif ">{!! $rs->capitulo_titulo !!}</h2>
-                            
-                            {!! $rs->capitulo_descripcion !!}
+                            <h2 class="serif ">Capitulo I</h2>
+                            <h3 class="">{!! $rs->capitulo_titulo !!}</h3>
+                            <p class="">{!! $rs->capitulo_descripcion !!}</p>
                         </div>
                     </div>
                 </div>
@@ -395,11 +407,7 @@ $color_4 = "#FFFFFF";
                     <div class="row">
                         <div class="col-12">
                             <div class="parafo">
-                                <p>[DE DONDE SALE ESTE TEXTO] Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
-                                    accusantium doloremque laudantium, totam rem aperiam, eaque 
-                                    ipsa quae ab illo inventore veritatis et quasi architecto 
-                                    beatae vitae dicta sunt explicabo.
-                                </p>
+                                <p>{!! $rs->capitulo_cita !!}</p>
                             </div>
                         </div>
                     </div>
@@ -423,8 +431,8 @@ $color_4 = "#FFFFFF";
                                 </div>
                             </div>
                             <div class="slider-items">
-                                @if( $data['galeria'] )
-                                    @foreach ( $data['galeria'] as $rsG )
+                                @if( $data['galeriaG'] )
+                                    @foreach ( $data['galeriaG'] as $rsG )
                                         <div class="slider-item">
                                             <img src="{{ URL_MEDIA.$rsG->imagen }}" alt="{{ $rsG->titulo }}" />
                                             <div class="card bg-1-opacity">
@@ -491,13 +499,13 @@ $color_4 = "#FFFFFF";
                 <div class="row">
                     <div class="col-6">
                         <div class="logo">
-                            <img src="{{ asset('img/logo.png') }}"/>
+                            <a href="{{ url('/') }}"><img src="{{ asset('img/logo.png') }}"/></a>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="powered">
                             <p>Powered by</p>
-                            <img src="{{ asset('img/powered.png') }}" />
+                            <a href="http://atomikal.com/" target="_blank"><img src="{{ asset('img/powered.png') }}" /></a>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,8 @@ class PublicacionModel extends Model
         'presentacion_quote','presentacion_imagen','presentacion_detalle','preambulo_detalle','preambulo_imagen_fondo',
         'capitulo_titulo','capitulo_descripcion','capitulo_cita','color_base','color_alterno','color_titulo_base',
         'color_titulo_alterno','color_imagen_titulo_base','color_imagen_titulo_alterno','color_subtitulo_base',
-        'color_subtitulo_alterno','color_texto_base','color_text_alterno','color_icono_quote','color_hover_galeria'
+        'color_subtitulo_alterno','color_texto_base','color_text_alterno','color_icono_quote','color_hover_galeria',
+        'sub_titulo','presentacion_titulo','presentacion_sub_titulo'
     ];
 
     public function categoria(): BelongsTo

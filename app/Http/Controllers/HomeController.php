@@ -242,8 +242,10 @@ class HomeController extends Controller
                 $dataInsert = galeriaPubModel::create( $request->all() );
             }else{
                 unset( $request['_token'] );
-                $dataInsert = galeriaPubModel::where( 'id' , $request['id'] )->update( $request->all() );
+                galeriaPubModel::where( 'id' , $request['id'] )->update( $request->all() );
+                $dataInsert = galeriaPubModel::where( 'id' , $request['id'] )->first();
             }
+            $response['item'] = $dataInsert;
             if( $request['publicacion_id'] == 0 ){
                 $response['data'] = galeriaPubModel::where([
                     [ 'token',$request['token'] ],
@@ -303,6 +305,12 @@ class HomeController extends Controller
         $response = array();
         $response['estado'] = 'OK';
 
+        unset( $request['_token'] );
+        unset( $request['tblGaleria_length'] );
+        unset( $request['tblAutores_length'] );
+        unset( $request['tblCapitulo_length'] );
+        unset( $request['tblGaleriaGeneral_length'] );
+
         $validator  = Validator::make($request->all(), [ 
             'categoria_id'  => 'required' , 
             'titulo'        => 'required' , 
@@ -316,7 +324,8 @@ class HomeController extends Controller
             $response['errores'] = $validator->errors();
         }else{
             #
-            $slug            = urlencode( $request['titulo'] );
+            
+            $slug = $this->slugify( $request['titulo'] );
             $request['slug'] = $slug;
             if(! isset($request['destacado']) ){
                 $request['destacado'] = 0;
@@ -324,7 +333,16 @@ class HomeController extends Controller
             if(! isset($request['activo']) ){
                 $request['activo'] = 0;
             }
-            $dataInsert = PublicacionModel::create( $request->all() );
+            # Agregar br en cada linea
+            if( $request['id'] == 0 ){
+                # Crear publicación
+                $dataInsert = PublicacionModel::create( $request->all() );
+            }else{
+                # Actualizar publicación
+                unset($request['id']);
+                PublicacionModel::where( 'uu_id', $request['uuid'] )->update( $request->all() );
+                $dataInsert = PublicacionModel::where( 'uu_id', $request['uuid'] )->first();
+            }
             $IdpUB = $dataInsert->id;
             # Unir galeria
             galeriaPubModel::where('token',$request['uu_id'])->update([ 'id_publicacion' => $IdpUB ]);
@@ -343,7 +361,8 @@ class HomeController extends Controller
         #
         $response = array();
         $response['estado'] = 'OK';
-        
+
+        $response['galeriaGeneral']    = array();
         $response['galeria']    = array();
         $response['capitulos']  = array();
         $response['autores']    = array();
@@ -356,6 +375,11 @@ class HomeController extends Controller
             $response['galeria'] = galeriaPubModel::where([
                 [ 'id_publicacion','=',$sData->id ],
                 [ 'tipo' ,'=', 1 ]
+            ])->get();
+            // Galeria general
+            $response['galeriaGeneral'] = galeriaPubModel::where([
+                [ 'id_publicacion','=',$sData->id ],
+                [ 'tipo' ,'=', 3 ]
             ])->get();
             // Capitulos
             $response['capitulos'] = galeriaPubModel::where([

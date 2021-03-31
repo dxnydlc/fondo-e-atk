@@ -154,3 +154,60 @@
         </div>
     </div>
 </div>
+
+
+
+
+<!-- Modal  GALERIA GENERAL -->
+<div class="modal fade" id="mdlGaleriaGeneral" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="true" >
+    <div class=" modal-dialog modal-dialog-centered modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar galeria general</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- ##################################### -->
+                <input type="hidden" id="IdGaleriaG" />
+                <input type="hidden" id="txtImagenGaleriaG" />
+                <!-- ##################################### -->
+                <div class=" row " >
+                    <div class=" col-lg-7 col-md-7 " >
+                        <div class=" form-group ">
+                            <label for="#" >Imagen galeria general</label>
+                            <div id="showoldupload9" ></div>
+                            <img src="" alt="" class="img-thumbnail img-fluid " id="img09" />
+                        </div>
+                        <!-- ./form-group -->
+                    </div>
+                    <!-- ./col -->
+                    <div class=" col-lg-5 col-md-5 " >
+                        <div class=" form-group ">
+                            <label for="txtTitGal01G" >Título</label>
+                            <input type="text" name="txtTitGal01G" id="txtTitGal01G" class="form-control" value="" maxlength="150" />
+                        </div>
+                        <!-- ./form-group -->
+                        <div class=" form-group ">
+                            <label for="txtDescri1G">Descripción</label>
+                            <textarea name="txtDescri1G" id="txtDescri1G" class=" form-control " ></textarea>
+                        </div>
+                        <!-- ./form-group -->
+                        <div class="form-group">
+                            <label for="orden3G" >Orden</label> 
+                            <input type="number" name="orden3G" id="orden3G" class="form-control" value="" />
+                        </div>
+                        <!-- ./form-group -->
+                    </div>
+                    <!-- ./col -->
+                </div>
+                <!-- ./row -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnGo_GaleriaG" >Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

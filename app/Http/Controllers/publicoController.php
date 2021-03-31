@@ -100,13 +100,14 @@ class publicoController extends Controller
         $data = array();
         $data['autores'] = array();
         $data['galeria'] = array();
+        $data['galeriaG'] = array();
         $data['relacionadas'] = array();
         # Capitulo
         $data['capitulo'] = array();
 
         if( $request['slug'] == '' ){
             # el home de publicaciones
-            return view( 'welcome' , compact('data') );
+            return redirect('/publicaciones');
         }
         $publicacion = PublicacionModel::where( 'slug' ,$request['slug'] )->first();
 
@@ -118,6 +119,11 @@ class publicoController extends Controller
             $data['galeria'] = galeriaPubModel::where([
                 [ 'id_publicacion' , '=' , $publicacion->id ],
                 [ 'tipo' ,'=', 1 ]
+            ])->get();
+            # Galeria General
+            $data['galeriaG'] = galeriaPubModel::where([
+                [ 'id_publicacion' , '=' , $publicacion->id ],
+                [ 'tipo' ,'=', 3 ]
             ])->get();
             # Capitulo
             $data['capitulo'] = galeriaPubModel::where([

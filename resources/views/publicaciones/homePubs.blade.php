@@ -87,7 +87,7 @@ Publicaciones
     <div class=" row " >
 
       <!-- ./col -->
-      <div class=" col-lg-12 col-md-12 " >
+      <div class=" col-lg-12 col-md-12 " id="tablitaW" >
         <div class="card">
           <div class="card-body">
             <h4 class="box-title">Listado de Publicaciones</h4>
@@ -159,9 +159,9 @@ Publicaciones
 
 <script type="text/javascript">
 /* ------------------------------------------------------------- */
-var table, tblGaleria,tblCapitulo,tblAutores;
+var table, tblGaleria,tblCapitulo,tblAutores,tblGaleriaGeneral;
 /* ------------------------------------------------------------- */
-var uploadObj,uploadObj2,uploadObj3,uploadObj4,uploadObj5,uploadObj6,uploadObj7;
+var uploadObj,uploadObj2,uploadObj3,uploadObj4,uploadObj5,uploadObj6,uploadObj7,uploadObj8,showoldupload9;
 /* ------------------------------------------------------------- */
 var CKEDITOR, resumen, dedicatoria, presentacion_quote, presentacion_detalle,capitulo_descripcion,capitulo_cita;
 /* ------------------------------------------------------------- */
@@ -286,7 +286,7 @@ var ArAutores = [];
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Si, quitar'
             }).then((result) => {
                 if (result.isConfirmed) {
                 delDocumento( $uuid );
@@ -688,8 +688,111 @@ var ArAutores = [];
             }
         });
         /* ------------------------------------------------------------- */
-        // TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        uploadObj8 = $("#showoldupload8").uploadFile({
+            url             :  _URL_HOME+ 'adjuntar/pdf/' ,
+            dragDrop        : true,
+            fileName        : "formData",
+            formData: {     '_token'  : $('meta[name="csrf-token"]').attr('content') , 'token' : _SessionToken } ,
+            returnType      : "json",
+            showDelete      : true,
+            statusBarWidth  : 500,
+            dragdropWidth   : 500,
+            maxFileSize     : 20000*1024,
+            showPreview     : true,
+            previewHeight   : "70px",
+            previewWidth    : "70px",
+            dragDropStr     : "<span><b>Arrastra tus archivos aquí :)</b></span>",
+            abortStr        : "Abandonar",
+            cancelStr       : "Mejor no...",
+            doneStr         : "Correcto",
+            multiDragErrorStr : "Por favor revisa las restricciónes de archivos.",
+            aallowedTypes    : 'jpg,png,jpeg',
+            extErrorStr     : "Sólo archivo de imágenes ()JPG,JPEG,PNG)",
+            sizeErrorStr    : "El máximo de tamaño es 20Mb:",
+            uploadErrorStr  : "Error",
+            uploadStr       : "Cargar",
+            dynamicFormData: function()
+            {
+                //var data ="XYZ=1&ABCD=2";
+                var data ={"XYZ":1,"ABCD":2};
+                return data;
+            },
+            deleteCallback: function (data, pd) {
+                var $datita = { '_token'  : $('meta[name="csrf-token"]').attr('content') , 'id' : data.data.id , 'uu_id' : data.data.uu_id };
+                // console.log( 'Hola!!! >>>' , data , $datita );
+                if( data.data != undefined ){
+                    $.post( "del/archivo/post" , $datita ,
+                        function (resp,textStatus, jqXHR) {
+                            //Show Message
+                            // alert("File Deleted");
+                    });
+                }
+                pd.statusbar.hide(); //You choice.
+            },
+            afterUploadAll:function(files,data,xhr,pd)
+            {
+                uploadObj8.reset();
+                var $n = files.responses.length - 1;
+                var  json = files.responses[$n];
+                $('#frmDocumento #img08').attr('src',json.url);
+                $('#frmDocumento #preambulo_imagen_fondo').val(json.archivo);
+            }
+        });
         /* ------------------------------------------------------------- */
+        showoldupload9 = $("#showoldupload9").uploadFile({
+            url             :  _URL_HOME+ 'adjuntar/pdf/' ,
+            dragDrop        : true,
+            fileName        : "formData",
+            formData: {     '_token'  : $('meta[name="csrf-token"]').attr('content') , 'token' : _SessionToken } ,
+            returnType      : "json",
+            showDelete      : true,
+            statusBarWidth  : 500,
+            dragdropWidth   : 500,
+            maxFileSize     : 20000*1024,
+            showPreview     : true,
+            previewHeight   : "70px",
+            previewWidth    : "70px",
+            dragDropStr     : "<span><b>Arrastra tus archivos aquí :)</b></span>",
+            abortStr        : "Abandonar",
+            cancelStr       : "Mejor no...",
+            doneStr         : "Correcto",
+            multiDragErrorStr : "Por favor revisa las restricciónes de archivos.",
+            aallowedTypes    : 'jpg,png,jpeg',
+            extErrorStr     : "Sólo archivo de imágenes ()JPG,JPEG,PNG)",
+            sizeErrorStr    : "El máximo de tamaño es 20Mb:",
+            uploadErrorStr  : "Error",
+            uploadStr       : "Cargar",
+            dynamicFormData: function()
+            {
+                //var data ="XYZ=1&ABCD=2";
+                var data ={"XYZ":1,"ABCD":2};
+                return data;
+            },
+            deleteCallback: function (data, pd) {
+                var $datita = { '_token'  : $('meta[name="csrf-token"]').attr('content') , 'id' : data.data.id , 'uu_id' : data.data.uu_id };
+                // console.log( 'Hola!!! >>>' , data , $datita );
+                if( data.data != undefined ){
+                    $.post( "del/archivo/post" , $datita ,
+                        function (resp,textStatus, jqXHR) {
+                            //Show Message
+                            // alert("File Deleted");
+                    });
+                }
+                pd.statusbar.hide(); //You choice.
+            },
+            afterUploadAll:function(files,data,xhr,pd)
+            {
+                showoldupload9.reset();
+                var $n = files.responses.length - 1;
+                var  json = files.responses[$n];
+                $('#mdlGaleriaGeneral #img09').attr('src',json.url);
+                $('#mdlGaleriaGeneral #txtImagenGaleriaG').val(json.archivo);
+            }
+        });
+        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- */
+        // TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        /* ------------------------------------------------------------- *
         CKEDITOR.editorConfig = function( config ) {
             config.language = 'es';
             config.uiColor = '#F7B42C';
@@ -698,7 +801,7 @@ var ArAutores = [];
             config.removePlugins = 'easyimage, cloudservices';
             config.filebrowserUploadUrl =  _URL_HOME+'/simple/carga/archivo?CKEditorFuncNum=1';
         };
-        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- *
         resumen = CKEDITOR.replace( 'resumen',{
             toolbar: [
                 {
@@ -742,7 +845,7 @@ var ArAutores = [];
 
             removeDialogTabs: 'image:advanced;link:advanced'
         });
-        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- *
         dedicatoria = CKEDITOR.replace( 'dedicatoria',{
             toolbar: [
                 {
@@ -783,7 +886,7 @@ var ArAutores = [];
 
             removeDialogTabs: 'image:advanced;link:advanced'
         });
-        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- *
         presentacion_quote = CKEDITOR.replace( 'presentacion_quote',{
             toolbar: [
                 {
@@ -824,7 +927,7 @@ var ArAutores = [];
 
             removeDialogTabs: 'image:advanced;link:advanced'
         });
-        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- *
         presentacion_detalle = CKEDITOR.replace( 'presentacion_detalle',{
             toolbar: [
                 {
@@ -865,7 +968,7 @@ var ArAutores = [];
 
             removeDialogTabs: 'image:advanced;link:advanced'
         });
-        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- *
         capitulo_descripcion = CKEDITOR.replace( 'capitulo_descripcion',{
             toolbar: [
                 {
@@ -906,7 +1009,7 @@ var ArAutores = [];
 
             removeDialogTabs: 'image:advanced;link:advanced'
         });
-        /* ------------------------------------------------------------- */
+        /* ------------------------------------------------------------- *
         capitulo_cita = CKEDITOR.replace( 'capitulo_cita',{
             toolbar: [
                 {
@@ -1243,6 +1346,74 @@ var ArAutores = [];
             }
         });
         /* ------------------------------------------------------------- */
+        tblGaleriaGeneral = $('#tblGaleriaGeneral').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [25, 50, 100],
+                [25, 50, 100]
+            ],
+            "order" 	 : [[ 0, "desc" ]],
+            "aaSorting"  : [],
+            "searching"  : true,
+            "responsive" : true,
+            "scrollX" 	 : true ,
+            buttons: [
+                {
+                    extend: 'collection',
+                    exportOptions: {
+                        modifier: {
+                        page: 'all',
+                        search: 'none'
+                        }
+                    },
+                    text: 'Exportar',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+                }
+            ],
+            language : {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ registros",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                sFirst: "|<",
+                sLast: ">|",
+                sNext: ">",
+                sPrevious: "<",
+                },
+                    oAria: {
+                    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending: ": Activar para ordenar la columna de manera descendente",
+                }
+            },
+            dom: "<'row'<'col-sm-3'l><'col-sm-3'f><'col-sm-6'p>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            "initComplete": function(settings, json) {
+                // Ocultamos el buscados - preloader
+                $('#tblGaleriaGeneral').waitMe('hide');
+            },
+            "drawCallback": function( settings ) {
+                var api = this.api();
+                // Ocultamos el buscados - preloader
+                $('#tblGaleriaGeneral').waitMe('hide');
+            }
+        });
+        /* ------------------------------------------------------------- */
         $('#btnAddGaleria').click(function (e) {
             e.preventDefault();
             $('#IdGaleria').val(0);
@@ -1264,6 +1435,47 @@ var ArAutores = [];
             uploadObj6.reset();
             $('#img06').attr('src','');
             $('#mdlGaleriaC').modal('show');
+        });
+        /* ------------------------------------------------------------- */
+        $('#btnAddGaleriaG').click(function (e) {
+            e.preventDefault();
+            $('#mdlGaleriaGeneral #IdGaleriaG').val(0)
+            $('#mdlGaleriaGeneral #txtImagenGaleriaG').val('');
+            $('#mdlGaleriaGeneral #txtTitGal01G').val('');
+            $('#mdlGaleriaGeneral #txtDescri1G').val('');
+            $('#mdlGaleriaGeneral #orden3G').val('0');
+            showoldupload9.reset();
+            $('#mdlGaleriaGeneral #img09').attr('src','');
+            $('#mdlGaleriaGeneral').modal('show');
+        });
+        /* ------------------------------------------------------------- */
+        $('#btnGo_GaleriaG').click(function (e) {
+            e.preventDefault();
+            agregarGaleria01General();
+        });
+        /* ------------------------------------------------------------- */
+        $(document).delegate('.btnDelGaleria1General', 'click', function(event) {
+            event.preventDefault();
+            var $id = $(this).data('id'), $uuid = $(this).data('uuid'), $nombre = $(this).data('nombre');
+            Swal.fire({
+                title: 'Confirmar',
+                text: "Quitar imagen: "+$nombre,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, quitar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    delGaleria01General( $id );
+                }
+            });
+        });
+        /* ------------------------------------------------------------- */
+        $(document).delegate('.cargarGaleGeneral', 'click', function(event) {
+            event.preventDefault();
+            var Id = $(this).data('id'), $uuid = $(this).data('uuid');
+            cargar_galeriaGeneral( Id );
         });
         /* ------------------------------------------------------------- */
         $('#btnAddAuor').click(function (e) {
@@ -1304,7 +1516,7 @@ var ArAutores = [];
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Si, quitar'
             }).then((result) => {
                 if (result.isConfirmed) {
                     delAutores( $id );
@@ -1327,7 +1539,7 @@ var ArAutores = [];
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Si, quitar'
             }).then((result) => {
                 if (result.isConfirmed) {
                     delGaleria01( $id );
@@ -1371,7 +1583,7 @@ function getAll()
   var _data = {
     '_token'  : $('meta[name="csrf-token"]').attr('content') ,
   };
-  $('#frmDocumento').waitMe({
+  $('#tablitaW').waitMe({
     effect  : 'facebook',
     text    : 'Espere...',
     bg      : 'rgba(255,255,255,0.7)',
@@ -1410,10 +1622,10 @@ function getAll()
         table.rows.add($jsonData).draw();
       break;
     }
-    $('#frmDocumento').waitMe('hide');
+    $('#tablitaW').waitMe('hide');
   })
   .always(function() {
-    $('#frmDocumento').waitMe('hide');
+    $('#tablitaW').waitMe('hide');
   });
 }
 /* ------------------------------------------------------------- */
@@ -1553,16 +1765,18 @@ function guardar()
         onClose : function() {}
     });
     // Cargando los textarea
-    var sresumen = CKEDITOR.instances.resumen.getData(), sdedicatoria = CKEDITOR.instances.dedicatoria.getData(),
-    spresentacion_quote = CKEDITOR.instances.presentacion_quote.getData(), spresentacion_detalle = CKEDITOR.instances.presentacion_detalle.getData(),
-    scapitulo_descripcion = CKEDITOR.instances.capitulo_descripcion.getData(), scapitulo_cita = CKEDITOR.instances.capitulo_cita.getData();
-    $('#frmDocumento #resumen').val(sresumen);
-    $('#frmDocumento #dedicatoria').val(sdedicatoria);
-    $('#frmDocumento #presentacion_quote').val(spresentacion_quote);
-    $('#frmDocumento #presentacion_detalle').val(spresentacion_detalle);
-    $('#frmDocumento #capitulo_descripcion').val(scapitulo_descripcion);
-    $('#frmDocumento #capitulo_cita').val(scapitulo_cita);
+    //var sresumen = CKEDITOR.instances.resumen.getData(), sdedicatoria = CKEDITOR.instances.dedicatoria.getData(),
+    //spresentacion_quote = CKEDITOR.instances.presentacion_quote.getData(), spresentacion_detalle = CKEDITOR.instances.presentacion_detalle.getData(),
+    //scapitulo_descripcion = CKEDITOR.instances.capitulo_descripcion.getData(), scapitulo_cita = CKEDITOR.instances.capitulo_cita.getData();
+    //$('#frmDocumento #resumen').val(sresumen);
+    //$('#frmDocumento #dedicatoria').val(sdedicatoria);
+    //$('#frmDocumento #presentacion_quote').val(spresentacion_quote);
+    //$('#frmDocumento #presentacion_detalle').val(spresentacion_detalle);
+    //$('#frmDocumento #capitulo_descripcion').val(scapitulo_descripcion);
+    //$('#frmDocumento #capitulo_cita').val(scapitulo_cita);
+    
     //
+    tranformarBRTextArea( 1 );
     var _data = $('#frmDocumento').serialize();
     //
     $.post( url , _data , function(data, textStatus, xhr) {
@@ -1591,6 +1805,7 @@ function guardar()
             });
         break;
         case 'OK':
+            tranformarBRTextArea( 2 );
             Swal.fire(
                 'Correcto',
                 'Datos guardados correctamente',
@@ -1609,17 +1824,17 @@ function guardar()
 /* ------------------------------------------------------------- */
 function cargarDoc( uuid )
 {
-  //
-  var _data = {
-    '_token'  : $('meta[name="csrf-token"]').attr('content') ,
-  };
-  $('#frmDocumento').waitMe({
-    effect  : 'facebook',
-    text    : 'Espere...',
-    bg      : 'rgba(255,255,255,0.7)',
-    color   : '#146436',fontSize:'20px',textPos : 'vertical',
-    onClose : function() {}
-  });
+    //
+    var _data = {
+        '_token'  : $('meta[name="csrf-token"]').attr('content') ,
+    };
+    $('#frmDocumento').waitMe({
+        effect  : 'facebook',
+        text    : 'Espere...',
+        bg      : 'rgba(255,255,255,0.7)',
+        color   : '#146436',fontSize:'20px',textPos : 'vertical',
+        onClose : function() {}
+    });
     $('#frmDocumento input[type="text"]').each(function(e){
         $(this).val('');
     });
@@ -1629,40 +1844,42 @@ function cargarDoc( uuid )
     $('#frmDocumento input[type="number"]').each(function(e){
         $(this).val('0');
     });
-  $.post( _URL_HOME+'cargar/publicacion/'+uuid, _data , function(data, textStatus, xhr) {
-    /*optional stuff to do after success */
-  }, 'json')
-  .fail(function(xhr, status, error) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: error,
-      });
-  })
-  .done( function( json ) {
+    $.post( _URL_HOME+'cargar/publicacion/'+uuid, _data , function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+    }, 'json')
+    .fail(function(xhr, status, error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error,
+        });
+    })
+    .done( function( json ) {
     switch(json.estado)
     {
-      case 'ERROR':
-        var $texto = '', $arError = [];
-        $.each( json.errores , function( key, value ) {
-          $arError.push( value );
-        });
-        $texto = $arError.join(', ');
-        Swal.fire({
-          icon: 'error',
-          title: 'Revise lo siguiente...',
-          text: `${$texto}`
-        });
-      break;
-      case 'OK':
-            // negocio...
+        case 'ERROR':
+            var $texto = '', $arError = [];
+            $.each( json.errores , function( key, value ) {
+            $arError.push( value );
+            });
+            $texto = $arError.join(', ');
+            Swal.fire({
+            icon: 'error',
+            title: 'Revise lo siguiente...',
+            text: `${$texto}`
+            });
+        break;
+        case 'OK':
+            
             if( json.data != undefined ){
                 $.each( json.data , function( key, value ) {
                     $('#frmDocumento #'+key).val(value);
                 });
+                tranformarBRTextArea( 2 );
                 $('#frmDocumento #img01').attr('src',_URL_MEDIA+json.data.imagen_portada);
                 $('#frmDocumento #img02').attr('src',_URL_MEDIA+json.data.imagen_detalle);
                 $('#frmDocumento #img03').attr('src',_URL_MEDIA+json.data.presentacion_imagen);
+                $('#frmDocumento #img08').attr('src',_URL_MEDIA+json.data.preambulo_imagen_fondo);
                 var rs = json.data;
                 $('#frmDocumento #categoria_id').trigger('change');
                 $('#frmDocumento #coleccion_id').trigger('change');
@@ -1682,12 +1899,12 @@ function cargarDoc( uuid )
                 $('#frmDocumento #filePDF').attr('href',_URL_MEDIA+json.data.archivo_issuu);
                 $('#frmDocumento #filePDF').html(`${json.data.archivo_issuu}`);
                 // Editores
-                CKEDITOR.instances.resumen.setData(rs.resumen);
-                CKEDITOR.instances.dedicatoria.setData(rs.dedicatoria);
-                CKEDITOR.instances.presentacion_quote.setData(rs.presentacion_quote);
-                CKEDITOR.instances.presentacion_detalle.setData(rs.presentacion_detalle);
-                CKEDITOR.instances.capitulo_descripcion.setData(rs.capitulo_descripcion);
-                CKEDITOR.instances.capitulo_cita.setData(rs.capitulo_cita);
+                //CKEDITOR.instances.resumen.setData(rs.resumen);
+                //CKEDITOR.instances.dedicatoria.setData(rs.dedicatoria);
+                //CKEDITOR.instances.presentacion_quote.setData(rs.presentacion_quote);
+                //CKEDITOR.instances.presentacion_detalle.setData(rs.presentacion_detalle);
+                //CKEDITOR.instances.capitulo_descripcion.setData(rs.capitulo_descripcion);
+                //CKEDITOR.instances.capitulo_cita.setData(rs.capitulo_cita);
                 // Color picker
                 if( rs.color_base ){
                     $('#frmDocumento #color_base').trigger('change');
@@ -1725,27 +1942,30 @@ function cargarDoc( uuid )
                 if( rs.color_hover_galeria ){
                     $('#frmDocumento #color_hover_galeria').trigger('change');
                 }
-
                 // Tablas
                 var $jsonData = populateAutores( json.autores );
                 tblAutores.clear();
                 tblAutores.rows.add($jsonData).draw();
+                // Galeria 1
                 var $jsonData = populateGaleria01( json.galeria );
                 tblGaleria.clear();
                 tblGaleria.rows.add($jsonData).draw();
-
+                // Galeria general
+                var $jsonData = populateGaleria01General( json.galeriaGeneral );
+                tblGaleriaGeneral.clear();
+                tblGaleriaGeneral.rows.add($jsonData).draw();
+                // Capitulos
                 var $jsonData = populateCapitulo02( json.capitulos );
                 tblCapitulo.clear();
                 tblCapitulo.rows.add($jsonData).draw();
-
             }
-      break;
+        break;
     }
-    $('#frmDocumento').waitMe('hide');
-  })
-  .always(function() {
-    $('#frmDocumento').waitMe('hide');
-  });
+        $('#frmDocumento').waitMe('hide');
+    })
+    .always(function() {
+        $('#frmDocumento').waitMe('hide');
+    });
 }
 /* ------------------------------------------------------------- */
 function buscar()
@@ -2532,6 +2752,291 @@ function cargar_galeria( Id )
     });
 }
 /* ------------------------------------------------------------- */
+function tranformarBRTextArea( Tipo )
+{
+    var resumen = $('#frmDocumento #resumen').val(),
+    dedicatoria = $('#frmDocumento #dedicatoria').val(),
+    presentacion_quote = $('#frmDocumento #presentacion_quote').val(),
+    presentacion_detalle = $('#frmDocumento #presentacion_detalle').val(),
+    capitulo_descripcion = $('#frmDocumento #capitulo_descripcion').val(),
+    capitulo_cita = $('#frmDocumento #capitulo_cita').val(),
+    preambulo_detalle = $('#frmDocumento #preambulo_detalle').val();
+    if( Tipo == 1 ){
+        //
+        var arrBR = resumen.split("\n");
+        resumen = arrBR.join('<br/>');
+        $('#frmDocumento #resumen').val(resumen);
+        // - //
+        var arrBR = dedicatoria.split("\n");
+        dedicatoria = arrBR.join('<br/>');
+        $('#frmDocumento #dedicatoria').val(dedicatoria);
+        // - //
+        var arrBR = presentacion_quote.split("\n");
+        presentacion_quote = arrBR.join('<br/>');
+        $('#frmDocumento #presentacion_quote').val(presentacion_quote);
+        // - //
+        var arrBR = presentacion_detalle.split("\n");
+        presentacion_detalle = arrBR.join('<br/>');
+        $('#frmDocumento #presentacion_detalle').val(presentacion_detalle);
+        // - //
+        var arrBR = capitulo_descripcion.split("\n");
+        capitulo_descripcion = arrBR.join('<br/>');
+        $('#frmDocumento #capitulo_descripcion').val(capitulo_descripcion);
+        // - //
+        var arrBR = capitulo_cita.split("\n");
+        capitulo_cita = arrBR.join('<br/>');
+        $('#frmDocumento #capitulo_cita').val(capitulo_cita);
+        // - //
+        var arrBR = preambulo_detalle.split("\n");
+        preambulo_detalle = arrBR.join('<br/>');
+        $('#frmDocumento #preambulo_detalle').val(preambulo_detalle);
+        // - //
+    }else{
+        var arrBR = resumen.split("<br/>");
+        resumen = arrBR.join("\n");
+        $('#frmDocumento #resumen').val(resumen);
+        // - //
+        var arrBR = dedicatoria.split("<br/>");
+        dedicatoria = arrBR.join("\n");
+        $('#frmDocumento #dedicatoria').val(dedicatoria);
+        // - //
+        var arrBR = presentacion_quote.split("<br/>");
+        presentacion_quote = arrBR.join("\n");
+        $('#frmDocumento #presentacion_quote').val(presentacion_quote);
+        // - //
+        var arrBR = presentacion_detalle.split("<br/>");
+        presentacion_detalle = arrBR.join("\n");
+        $('#frmDocumento #presentacion_detalle').val(presentacion_detalle);
+        // - //
+        var arrBR = capitulo_descripcion.split("<br/>");
+        capitulo_descripcion = arrBR.join("\n");
+        $('#frmDocumento #capitulo_descripcion').val(capitulo_descripcion);
+        // - //
+        var arrBR = capitulo_cita.split("<br/>");
+        capitulo_cita = arrBR.join("\n");
+        $('#frmDocumento #capitulo_cita').val(capitulo_cita);
+        // - //
+        var arrBR = preambulo_detalle.split("<br/>");
+        preambulo_detalle = arrBR.join("\n");
+        $('#frmDocumento #preambulo_detalle').val(preambulo_detalle);
+        // - //
+        
+    }
+}
+/* ------------------------------------------------------------- */
+function agregarGaleria01General()
+{
+    var _data = {
+        '_token'    : $('meta[name="csrf-token"]').attr('content') ,
+        'titulo'    : $('#mdlGaleriaGeneral #txtTitGal01G').val(),
+        'descripcion': $('#mdlGaleriaGeneral #txtDescri1G').val(),
+        'imagen'    : $('#mdlGaleriaGeneral #txtImagenGaleriaG').val(),
+        'orden'     : $('#mdlGaleriaGeneral #orden3G').val(),
+        'activo'    : 1,
+        'tipo'      : 3,
+        'token'     : $('#frmDocumento #uu_id').val(),
+        'id_publicacion' : $('#frmDocumento #id').val(),
+        'id'        : $('#mdlGaleriaGeneral #IdGaleriaG').val()
+    };
+    $('#mdlGaleriaGeneral .modal-body').waitMe({
+        effect  : 'facebook',
+        text    : 'Espere...',
+        bg      : 'rgba(255,255,255,0.7)',
+        color   : '#146436',fontSize:'20px',textPos : 'vertical',
+        onClose : function() {}
+    });
+    $.post( _URL_HOME + 'galeria/publicacion', _data , function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+    }, 'json')
+    .fail(function(xhr, status, error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error,
+        });
+    })
+    .done( function( json ) {
+        switch(json.estado)
+        {
+            case 'ERROR':
+                var $texto = '', $arError = [];
+                $.each( json.errores , function( key, value ) {
+                    $arError.push( value );
+                });
+                $texto = $arError.join(', ');
+                Swal.fire({
+                icon: 'error',
+                title: 'Revise lo siguiente...',
+                text: `${$texto}`
+                });
+            break;
+            case 'OK':
+                Swal.fire(
+                    'Correcto',
+                    'Galeria general agregada',
+                    'success'
+                );
+                var _id = $('#mdlGaleriaGeneral #IdGaleriaG').val();
+                var _IdImg = parseInt( _data.id );
+                if( _id == 0 ){
+                    $('#mdlGaleriaGeneral #IdGaleriaG').val(0);
+                    $('#mdlGaleriaGeneral #txtImagenGaleriaG').val('');
+                    $('#mdlGaleriaGeneral #txtTitGal01G').val('');
+                    $('#mdlGaleriaGeneral #orden3G').val('');
+                    $('#mdlGaleriaGeneral #txtDescri1G').val('');
+                    $('#mdlGaleriaGeneral #img09').attr('src','');
+                    showoldupload9.reset();
+                }else{
+                    $('#mdlGaleriaGeneral #IdGaleriaG').val(json.item.id);
+                }
+                var $jsonData = populateGaleria01General( json.data );
+                tblGaleriaGeneral.clear();
+                tblGaleriaGeneral.rows.add($jsonData).draw();
+            break;
+        }
+        $('#mdlGaleriaGeneral .modal-body').waitMe('hide');
+    })
+    .always(function() {
+        $('#mdlGaleriaGeneral .modal-body').waitMe('hide');
+    });
+}
+/* ------------------------------------------------------------- */
+function populateGaleria01General( json )
+{
+	//
+	var $data = [], $CSGO = 1;
+	if( json != undefined ){
+		$.each( json , function( key, value ) {
+			var $o = [];
+			$o.push(value.orden);
+            $o.push(`<a href="#" class=" cargarGaleGeneral " data-id="${value.id}" data-uuid="${value.uu_id}" >${value.titulo}</a>`);
+            $o.push(`<button data-id="${value.id}" data-uuid="${value.uu_id}" data-nombre="${value.titulo}" type="button" class=" btnDelGaleria1General btn btn-block btn-danger btn-xs">Eliminar</button>`);
+			//
+			$data.push( $o );
+			$CSGO++;
+		});
+	}
+	//
+	return $data;
+}
+/* ------------------------------------------------------------- */
+function delGaleria01General( $uuid )
+{
+	var _data = {
+        '_token' : $('meta[name="csrf-token"]').attr('content') ,
+        'uuid'   : $uuid ,
+        'slug'   : $('#frmDocumento #uu_id').val(),
+        'publicacion_id' : $('#frmDocumento #id').val(),
+        'tipo'      : 3,
+    };
+    $('#frmDocumento').waitMe({
+        effect  : 'facebook',
+        text    : 'Espere...',
+        bg      : 'rgba(255,255,255,0.7)',
+        color   : '#146436',fontSize:'20px',textPos : 'vertical',
+        onClose : function() {}
+    });
+    $.post( _URL_HOME + 'del/galeria', _data , function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+    }, 'json')
+    .fail(function(xhr, status, error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error,
+        });
+    })
+    .done( function( json ) {
+        switch(json.estado)
+        {
+            case 'ERROR':
+                var $texto = '', $arError = [];
+                $.each( json.errores , function( key, value ) {
+                    $arError.push( value );
+                });
+                $texto = $arError.join(', ');
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Revise lo siguiente...',
+                    text: `${$texto}`
+                });
+            break;
+            case 'OK':
+                Swal.fire(
+                    'Correcto',
+                    'Imagen eliminada',
+                    'success'
+                );
+                var $jsonData = populateGaleria01( json.data );
+                tblGaleriaGeneral.clear();
+                tblGaleriaGeneral.rows.add($jsonData).draw();
+            break;
+        }
+        $('#frmDocumento').waitMe('hide');
+    })
+    .always(function() {
+        $('#frmDocumento').waitMe('hide');
+    });
+}
+/* ------------------------------------------------------------- */
+function cargar_galeriaGeneral( Id )
+{
+    var _data = {
+        '_token' : $('meta[name="csrf-token"]').attr('content') ,
+        'id' : Id
+    };
+    $('#frmDocumento').waitMe({
+        effect  : 'facebook',
+        text    : 'Espere...',
+        bg      : 'rgba(255,255,255,0.7)',
+        color   : '#146436',fontSize:'20px',textPos : 'vertical',
+        onClose : function() {}
+    });
+    $.post( _URL_HOME + 'get/galeria', _data , function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+    }, 'json')
+    .fail(function(xhr, status, error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error,
+        });
+    })
+    .done( function( json ) {
+        switch(json.estado)
+        {
+            case 'ERROR':
+                var $texto = '', $arError = [];
+                $.each( json.errores , function( key, value ) {
+                    $arError.push( value );
+                });
+                $texto = $arError.join(', ');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Revise lo siguiente...',
+                    text: `${$texto}`
+                });
+            break;
+            case 'OK':
+                // negocio...
+                if( json.data != undefined ){
+                    var rs = json.data;
+                    $('#mdlGaleriaGeneral #IdGaleriaG').val( rs.id );
+                    $('#mdlGaleriaGeneral #txtImagenGaleriaG').val( rs.imagen );
+                    $('#mdlGaleriaGeneral #img09').attr( 'src', _URL_MEDIA+rs.imagen );
+                    $('#mdlGaleriaGeneral #txtTitGal01G').val( rs.titulo );
+                    $('#mdlGaleriaGeneral #txtDescri1G').val( rs.descripcion );
+                    $('#mdlGaleriaGeneral #orden3G').val( rs.orden );
+                    $('#mdlGaleriaGeneral').modal('show');
+                }
+            break;
+        }
+        $('#frmDocumento').waitMe('hide');
+    })
+    .always(function() {
+        $('#frmDocumento').waitMe('hide');
+    });
+}
 /* ------------------------------------------------------------- */
 /* ------------------------------------------------------------- */
 /* ------------------------------------------------------------- */
