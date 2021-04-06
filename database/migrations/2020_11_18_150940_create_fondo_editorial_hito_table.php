@@ -15,7 +15,7 @@ class CreateFondoEditorialHitoTable extends Migration
     {
         Schema::create('fondo_editorial_hito', function (Blueprint $table) {
             $table->id();
-
+            $table->string('uu_id');
             $table->unsignedBigInteger('id_fondo_editorial');
             $table->foreign('id_fondo_editorial')->references('id')->on('fondo_editorial')->onDelete('cascade');
 
@@ -23,6 +23,7 @@ class CreateFondoEditorialHitoTable extends Migration
             $table->string('titulo')->nullable();
             $table->text('descripcion');
             $table->string('imagen')->nullable();
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }

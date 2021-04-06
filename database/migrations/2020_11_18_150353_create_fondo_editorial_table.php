@@ -15,6 +15,7 @@ class CreateFondoEditorialTable extends Migration
     {
         Schema::create('fondo_editorial', function (Blueprint $table) {
             $table->id();
+            $table->string('uu_id');
             $table->string('titulo');
             $table->string('slug');
             $table->text('resumen');

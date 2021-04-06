@@ -16,9 +16,9 @@ class CreateAutoresTable extends Migration
         Schema::create('autores', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 150);
-            $table->string('slug');
+            $table->string('slug',150);
             $table->longText('biografia');
-            $table->string('imagen')->nullable();
+            $table->string('imagen',150)->nullable();
 
             $table->unsignedBigInteger('publicacion_id');
             $table->foreign('publicacion_id')->references('id')->on('publicaciones');

@@ -67,7 +67,7 @@ Route::get('/fondo-editorial', 'publicoController@fondo_editorial');
 Route::get('/noticias/{slug?}', 'publicoController@cargar_noticias');
 
 
-
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 
@@ -83,11 +83,18 @@ Route::prefix('manager')->group(function () {
     Route::get('/home', function () {
         return view('home');
     });
-    Route::get('/', function () {
+    /*Route::get('/', function () {
         return redirect('/manager/home');
-    });
+    });*/
 
     # . CODIGO DXNY
+    Route::post('/adjuntar/banner/', function () {
+        return 'Adjuntar por post';
+    });
+    Route::get('/adjuntar/banner/', function () {
+        return 'Adjuntar por gets';
+    });
+
     Route::get('/setclave', function () {
         return view('cambiarClave');
     });
@@ -115,8 +122,8 @@ Route::prefix('manager')->group(function () {
     Route::get('/publicaciones', 'HomeController@publicaciones' );
     
     # Adjuntar imagen banner
-    Route::post( '/adjuntar/banner/' , 'adjuntoController@adjunar_archivo_banner' );
-    Route::post( '/adjuntar/pdf/' , 'adjuntoController@adjuntar_archivo_pdf' );
+    #Route::post( 'adjuntar/banner/' , 'adjuntoController@adjunar_archivo_banner' );
+    Route::post( 'adjuntar/pdf/' , 'adjuntoController@adjuntar_archivo_pdf' );
     
     # Adjuntar imagen publicacion
     Route::post( '/adjuntar/publicacion/' , 'adjuntoController@adjunar_archivo_publicacion' );
@@ -256,10 +263,11 @@ Route::prefix('manager')->group(function () {
     
 
     # ./ CODIGO DXNY
+    Auth::routes();
 
 });
 
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+

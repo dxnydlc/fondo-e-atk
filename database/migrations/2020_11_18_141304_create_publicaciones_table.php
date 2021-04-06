@@ -15,7 +15,7 @@ class CreatePublicacionesTable extends Migration
     {
         Schema::create('publicaciones', function (Blueprint $table) {
             $table->id();
-
+            $table->string('uu_id', 150);
             $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
 
@@ -23,6 +23,7 @@ class CreatePublicacionesTable extends Migration
             $table->foreign('coleccion_id')->references('id')->on('colecciones')->onDelete('cascade');
 
             $table->string('titulo', 150);
+            $table->string('sub_titulo', 150);
             $table->string('slug');
             $table->text('resumen');
             $table->integer('anio');
@@ -30,13 +31,16 @@ class CreatePublicacionesTable extends Migration
             $table->string('seo_titulo', 150)->nullable();
             $table->string('seo_descripcion', 150)->nullable();
             $table->boolean('destacado')->default(false);
-            $table->string('issuu_embed')->nullable();
+            $table->text('issuu_embed')->nullable();
+            $table->string('archivo_issuu')->nullable();
             $table->string('imagen_portada')->nullable();
             $table->string('imagen_detalle')->nullable();
             $table->boolean('activo')->default(false);
             $table->text('dedicatoria')->nullable();
             $table->text('presentacion_quote')->nullable();
             $table->string('presentacion_imagen')->nullable();
+            $table->string('presentacion_titulo')->nullable();
+            $table->string('presentacion_sub_titulo')->nullable();
             $table->text('presentacion_detalle')->nullable();
             $table->text('preambulo_detalle')->nullable();
             $table->string('preambulo_imagen_fondo')->nullable();

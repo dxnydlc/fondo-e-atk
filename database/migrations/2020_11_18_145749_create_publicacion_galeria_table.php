@@ -25,7 +25,7 @@ class CreatePublicacionGaleriaTable extends Migration
             $table->integer('orden')->nullable();
             $table->boolean('activo')->default(false);
             $table->integer('tipo')->nullable();
-
+            $table->integer('token')->nullable();
             $table->timestamps();
         });
     }
